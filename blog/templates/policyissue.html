@@ -1,0 +1,972 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SOS Finance</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="shortcut icon" type="image/png" href="{% static 'images/logos/logo.png' %}" />
+  <link rel="stylesheet" href="{% static 'css/styles.min.css' %}" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css"> 
+  <style>
+    body {
+      font-size: 100%;
+    }
+  
+    h2 {
+      text-align: center;
+      padding: 20px 0;
+    }
+  
+    table caption {
+      padding: .5em 0;
+    }
+  
+    table.dataTable th,
+    table.dataTable td {
+      white-space: nowrap;
+    }
+  
+    .custom-table-border {
+      border-color: #2d2d56; /* Lighter border color for specific table */
+    }
+  
+    .p {
+      text-align: center;
+      padding-top: 140px;
+      font-size: 16px;
+    }
+  </style>
+  
+</head>
+
+<body>
+  
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between">
+          <a href="/index.html" class="text-nowrap logo-img">
+            <img src="{% static 'images/logos/logo.png' %}" width="180" alt="" />
+          </a>
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Home</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'home' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">FORMS</span>
+            </li>
+            
+            
+           
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'loan' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-file-description"></i>
+                </span>
+                <span class="hide-menu">Loan Enquiry</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'policy_issue' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-file-description"></i>
+                </span>
+                <span class="hide-menu">Policy Issue</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'renewal' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-file-description"></i>
+                </span>
+                <span class="hide-menu">Renewal Policy</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'insurance_enquiry' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-file-description"></i>
+                </span>
+                <span class="hide-menu">Insurancce Enquiry</span>
+              </a>
+            </li>
+            
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">AUTH</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'login' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-login"></i>
+                </span>
+                <span class="hide-menu">Login</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'signup' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-user-plus"></i>
+                </span>
+                <span class="hide-menu">Register</span>
+              </a>
+            </li>
+            
+          </ul>
+         
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+        <!-- End Sidebar scroll-->
+    </aside>
+    <!-- Sidebar End -->
+    <!-- Main wrapper -->
+    <div class="body-wrapper">
+      <!--  Header Start -->
+      <header class="app-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <ul class="navbar-nav">
+            <li class="nav-item d-block d-xl-none">
+              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+                <i class="ti ti-menu-2"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              {% comment %} <a class="nav-link nav-icon-hover" href="javascript:void(0)">
+                <i class="ti ti-bell-ringing"></i>
+                <div class="notification bg-primary rounded-circle"></div>
+              </a> {% endcomment %}
+            </li>
+          </ul>
+          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+              <a href="{% url 'logout' %}" target="_blank" class="btn btn-primary">Logout</a>
+              {% comment %} <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank" class="btn btn-primary">Download Free</a>
+              <li class="nav-item dropdown">
+                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                  aria-expanded="false"> {% endcomment %}
+                  {% comment %} <img src="static/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle"> {% endcomment %}
+                {% comment %} </a> {% endcomment %}
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                  <div class="message-body">
+                    
+                    <a href="{% url 'logout' %}" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <!--  Header End -->
+      <div class="container-fluid">
+        <div class="container-fluid">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title fw-semibold mb-4">Policy Issue Form</h5>
+              <div class="card">
+                <div class="card-body">
+                  <style>input[type=text], select, textarea {
+                    width: 100%;
+                    padding: 12px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    resize: vertical;
+                  }</style>
+                  {% comment %} form content {% endcomment %}
+                  <div class="container mt-4">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="container mt-4">
+                                {% comment %} <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Enter Search Query" id="searchInput">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="search()">Search</button>
+                                </div> {% endcomment %}
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">New Policy Issue</button>
+                            <button type="button" class="btn btn-success" onclick="downloadDataRecords()">
+                                <i class="bi bi-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% comment %} <form method="POST" action="{% url 'policy_issue' %}">
+                    {% csrf_token %}
+                    <!-- Other form fields -->
+                    <label for="end_date">End Date:</label>
+                    <input type="date" id="end_date" name="end_date">
+                    <button type="submit" style="background-color: #4CAF50; /* Green */
+                  border: none;
+                  color: white;
+                  padding: 15px 32px;
+                  text-align: center;
+                  text-decoration: none;
+                  display: inline-block;
+                  font-size: 16px;
+                  margin: 4px 2px;
+                  transition-duration: 0.4s;
+                  cursor: pointer;
+                  border-radius: 12px;">Submit</button>
+                </form>
+                 {% endcomment %}
+              <!-- Modal -->
+              <div class=" modal fade row justify-content-end" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-dialog-end col-md-6">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Policy Issue Form</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <form action="/policyissue/"  method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                <div class="container">
+                    <div class="row align-items-start mt-5 fw-bold">
+                        {% comment %} <div class="col-md-9 offset-md-2"> {% endcomment %}
+                                <div class="mb-3">
+                                    <label for="exampleInputNumber" class="form-label"><b>Date</b></label>
+                                    <input type="date" name="date" class="form-control" id="exampleInputDate" onchange="setDefaultDate()">
+                                </div>
+                                <script>
+                                    function setDefaultDate() {
+                                        var currentDate = new Date();
+                                        var day = currentDate.getDate();
+                                        var month = currentDate.getMonth() + 1; // Months are zero-based
+                                        var year = currentDate.getFullYear();
+                                
+                                        // Format the date as 'YYYY-MM-DD' for the input field
+                                        var formattedDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+                                
+                                        document.getElementById('exampleInputDate').value = formattedDate;
+                                    }
+                                
+                                    // Call the function on page load to set the default date
+                                    window.onload = setDefaultDate;
+                                </script>
+                              
+                               <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Policy Holder Name" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="number" class="form-label">Mobile Number</label>
+                                <input type="text" class="form-control" id="number" name="number" pattern="^[0-9]{10}$" maxlength="10" required placeholder="Enter 10-digit number">
+                            </div>
+                            <div class="mb-3">
+                              <label for="number" class="form-label">CKYC Number</label>
+                              <input type="text" class="form-control" id="ckyc" name="ckyc" placeholder="CKYC12345678" required>
+                            </div>
+                            <div class="mb-3">
+                            <label for="exampleInputNumber" class="form-label">Policy Number</label>
+                            <input type="text" name='p_number' class="form-control" placeholder="POL-123-456-789" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputNumber" class="form-label">Vehicle Number<span class="text-danger">*</span></label>
+                                <input type="text" name='v_number' class="form-control" placeholder="MH 01 AB 1234" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputNumber" class="form-label">Vehicle</label>
+                                <input type="text" name='Vehicle' class="form-control"  placeholder="e.g. Toyota Corolla" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputNumber" class="form-label">Chassis Number</label>
+                                <input type="text" name='c_number' class="form-control" placeholder="e.g. MA3EED82S00123456" required>
+                            </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputNumber" class="form-label">Engine Number</label>
+                                    <input type="text" name='e_number' class="form-control"  placeholder="e.g. G15A123456" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Location</label>
+                                    <input type="text" name='Location' class="form-control" placeholder="VADODARA"  required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">HP Bank</label>
+                                    <input type="text" name='HP_bank' class="form-control"  placeholder="Enter HP Bank name"  required>
+                                </div>
+                                {% comment %} <div class="container mx-2"> {% endcomment %}
+                                  <div class="mb-3">
+                                  <p class='mb-3 fw-bold'>Business Type</p>
+                                  <div class="position-relative">
+                                      <select class="form-select" name="business_type">
+                                        <option value="New">New</option>
+                                        <option value="Data" selected>Data</option>
+                                        <option value="Renewal">Renewal</option>
+                                        <option value="Endorsement">Endorsement</option>
+                                      </select>
+                                    </div>
+                                </div>
+                            
+                                {% comment %} <div class="container mx-2"> {% endcomment %}
+                                  <div class="mb-3">
+                                  <p class='mb-3 fw-bold'>Insurance Type</p>
+                                  <div class="position-relative">
+                                      <select class="form-select" name="insurance_type">
+                                          <option value="Full">Full</option>
+                                          <option value="TP" selected>TP</option>
+                                          <option value="SOD">SOD</option>
+                                          <option value="Package">Package</option>
+                                          <option value="Health">Health</option>
+                                      </select>
+                                  </div>
+                                </div>
+                            
+                                {% comment %} <div class="container mx-2"> {% endcomment %}
+                                  <div class="mb-3">
+                                  <p class='mb-3 fw-bold'>Insurance Portal</p>
+                                  <div class="position-relative">
+                                      <select class="form-select" name="insurance_portal">
+                                          <option value="Mintpro">Mintpro</option>
+                                          <option value="Agency" selected>Agency</option>
+                                          <option value="Ahmedabad">Ahmedabad</option>
+                                          <option value="IRSS">IRSS</option>
+                                          <option value="Probus">Probus</option>
+                                          <option value="Insurance_Dekho">Insurance Dekho</option>
+                                      </select>
+                                  </div>
+                                </div>
+                                <style>
+                                    .form-container {
+                                        margin: 20px;
+                                        padding: 20px;
+                                        border: 1px solid #ccc;
+                                        border-radius: 5px;
+                                    }
+                            
+                                    .autocomplete {
+                                        position: relative;
+                                        display: inline-block;
+                                        margin-bottom: 15px;
+                                    }
+                            
+                                    input {
+                                        padding: 10px;
+                                        width: calc(100% - 20px);
+                                        margin-bottom: 10px;
+                                    }
+                            
+                                    .autocomplete-items {
+                                        position: absolute;
+                                        border: 1px solid #ccc;
+                                        max-height: 150px;
+                                        overflow-y: auto;
+                                        z-index: 99;
+                                        width: calc(100% - 20px);
+                                    }
+                            
+                                    .autocomplete-item {
+                                        padding: 10px;
+                                        cursor: pointer;
+                                    }
+                            
+                                    .autocomplete-item:hover {
+                                        background-color: #e0e0e0;
+                                    }
+                            
+                                    /* Add style for the button */
+                                    .add-button {
+                                        cursor: pointer;
+                                        background-color: #4caf50;
+                                        color: white;
+                                        border: none;
+                                        border-radius: 5px;
+                                        padding: 10px;
+                                        width: calc(25% - 20px);
+                                    }
+                            
+                                    /* Adjusted styling for better visibility */
+                                    .add-button:hover {
+                                        background-color: #45a049;
+                                    }
+                            
+                                    /* Style for the plus sign */
+                                    .add-company-input::before {
+                                        content: '\002B'; /* Unicode character for plus sign */
+                                        position: absolute;
+                                        padding: 10px;
+                                        color: #ccc;
+                                        cursor: pointer;
+                                    }
+                                </style>
+                            </head>
+                            <body>
+                                {% comment %} <div class="form-container col-10 mb-1 mx-5 mt-4"> {% endcomment %}
+                                  <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Insurance Company</label>
+                                    <div class="mb-3">
+                                      <input type="text" name='I_company' id="insurance-company-input" class="form-control px-5"  placeholder="BAJAJ" required>
+                                      <div class="autocomplete-items" id="insurance-company-list"></div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="text" id="new-company-input" placeholder="+ Enter new company name">
+                                    </div>
+                                    {% comment %} <button class="add-button col-10 mb-1 mx-2 mt-4 mx-5" onclick="addCompany()">Add Company</button> {% endcomment %}
+                                    <button class="btn btn-success mb-3" onclick="addCompany()">Add Company</button>
+                                  </div>
+                            
+                                <script>
+                                    // List of insurance companies
+                                    const insuranceCompanies = ["BAJAJ", "ICICI LOMBARD", "TATA AIG", "BAJAJ", "LIBERTY", "BAJAJ(MINTPRO)",
+                                        "GO DIGIT(MINTRO)", "HDFC MINTPRO", "BARTI AXXA", "HDFC(MINTPRO)", "HDFC ERGO", "ROYAL IRSS",
+                                        "GO DIGIT MINTPRO", "BAJAJ MINTPRO", "IRSS TATA AIG", "ROYAL SUNDRAM", "BAJAJ ALLIANZ",
+                                        "BHARATI AXXA", "RELIANCE(MINTPRO)", "TATA AIG(IRSS)", "HDFC MINTRO", "FG MINTPRO", "HDFC AMD",
+                                        "TATA AIG IRSS", "PROBUS FG", "PROBUS GO DIGIT", "PROBUS BAJAJ", "MINTPRO BAJAJ", "PROBUS ICICI",
+                                        " PROBUS RELIANCE", "PROBUS HDFC", "THE NEW INDIA", "MINTPRO ROYAL", "PROBUS AXXA", "PROBUS TATA",
+                                        "MINTPRO IFKO TOKIO", "PROBUS BHARTI AXXA", "TATA IRSS", "MINTPRO GO DIGIT", "AMD HDFC", "IRSS FG",
+                                        "PROBUA BHARTI", "TATA ANAND", "ROYAL TATA", "PROBUS LIBERTY", "GO DIGIT PROBUS", "RELIANCE PROBUS",
+                                        "BAJAJ PROBUS", "ICICI MINTPRO", "ROYAL", "KOTAK MAHINDRA", "RELIANCE", "RELIANCE MINTPRO",
+                                        "HDFC PROBUS", "GO DIGIT", "FG", "NIVA BUPA", "KOTAK", "HDFC ERGO MARUTI", "UNIVERSAL SOMPO",
+                                        "CHOLA MS", "NATIONAL INSURANCE", "SHRIRAM", "IFKO TOKIO", "ICICI", "HDFC ONLINE", "EDELWEISS",
+                                        "ROYAL", "HDFC", "DIGIT", "OFFLINE HDFC ERGO", "DIGIT", "RAHEJA", "OFFLINE RELIANCE", "OFFLINE IFKO",
+                                        "GO DIGIT OFFLINE", "ACKO", "IFCKO", "RELIANCE OFFLINE", "HDFC", "OFFLINE CHOLA MS", "OFFLINE TATA AIG",
+                                        "TATA AIG OFFLINE", "TATA", "CHOLA", "IFCKO OFFLINE", "ZUNO OFFLINE", "BAJAJ OFFLINE", "IFCKO",
+                                        "TATA OFFLINE", "SHRIRAN OFFLINE", "ZUNO", "MAGMA", "SBI OFFLINE", "HDFC OFFLINE", "ZUNO"];
+                            
+                            
+                                    // Get the input element and the list container
+                                    const inputElement = document.getElementById('insurance-company-input');
+                                    const listContainer = document.getElementById('insurance-company-list');
+                                    const newCompanyInput = document.getElementById('new-company-input');
+                            
+                                    // Event listener for input changes
+                                    inputElement.addEventListener('input', function() {
+                                        const inputText = this.value.toLowerCase();
+                                        // Clear previous items
+                                        listContainer.innerHTML = '';
+                            
+                                        // Filter and display matching items
+                                        const matchingCompanies = insuranceCompanies.filter(company => company.toLowerCase().includes(inputText));
+                                        matchingCompanies.forEach(company => {
+                                            const itemElement = document.createElement('div');
+                                            itemElement.className = 'autocomplete-item';
+                                            itemElement.textContent = company;
+                                            itemElement.addEventListener('click', function() {
+                                                inputElement.value = company;
+                                                listContainer.innerHTML = '';
+                                            });
+                                            listContainer.appendChild(itemElement);
+                                        });
+                                    });
+                      
+                                    // Function to add a new company to the list
+                                    function addCompany() {
+                                        const newCompany = newCompanyInput.value.trim().toUpperCase();
+                            
+                                        // Check if the company is not empty and does not already exist
+                                        if (newCompany !== '' && !insuranceCompanies.includes(newCompany)) {
+                                            insuranceCompanies.push(newCompany);
+                                            newCompanyInput.value = ''; // Clear the input field
+                                        }
+                            
+                                        // Update the autocomplete list
+                                        updateAutocomplete();
+                                    }
+                            
+                                    // Function to update the autocomplete list
+                                    function updateAutocomplete() {
+                                        listContainer.innerHTML = '';
+                            
+                                        insuranceCompanies.forEach(company => {
+                                            const itemElement = document.createElement('div');
+                                            itemElement.className = 'autocomplete-item';
+                                            itemElement.textContent = company;
+                                            itemElement.addEventListener('click', function() {
+                                                inputElement.value = company;
+                                                listContainer.innerHTML = '';
+                                            });
+                                            listContainer.appendChild(itemElement);
+                                        });
+                                    }
+                            
+                                    // Close the list when clicking outside the input
+                                    document.addEventListener('click', function(event) {
+                                        if (event.target !== inputElement && event.target !== listContainer) {
+                                            listContainer.innerHTML = '';
+                                        }
+                                    });
+                                </script>
+                                    <div class="mb-3">
+                                      <label for="exampleInputEmail1" class="form-label">Payment from Customer</label>
+                                      <input type="text" name='payment' class="form-control"   placeholder="GPAY" required>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label for="exampleInputEmail1" class="form-label">Payment by SOS</label>
+                                      <input type="text" name='payment_sos' class="form-control"  placeholder="CREDIT CARD" required>
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Policy Start Date<span class="text-danger">*</span></label>
+                                    <input type="date" name='PS_date' class="form-control" id="start-date" required onchange="setEndDate()">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Policy End Date<span class="text-danger">*</span></label>
+                                    <input type="date" name='PE_date' class="form-control" id="end-date" required>
+                                </div>
+                                
+                                <script>
+                                    function setEndDate() {
+                                        var startDate = new Date(document.getElementById('start-date').value);
+                                        
+                                        // Add 365 days to the start date
+                                        startDate.setDate(startDate.getDate() + 365-1);
+                                        
+                                        // Format the end date and set it in the end-date input
+                                        var formattedEndDate = startDate.toISOString().split('T')[0];
+                                        document.getElementById('end-date').value = formattedEndDate;
+                                    }
+                                </script>
+                                
+                                     
+                                     <div class="mb-3">
+                                      <label for="exampleInputEmail1" class="form-label">NCB %</label>
+                                      <input type="number" name='Ncb' class="form-control"   placeholder="0" required>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label for="exampleInputEmail1" class="form-label">Premium</label>
+                                      <input type="number" name='Premium' class="form-control"   placeholder="0" required>
+                                  </div>
+                                    <!DOCTYPE HTML>
+                                    <html lang="en">
+                                    
+                                    <head>
+                                        {% comment %} <meta charset="UTF-8">
+                                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+                                            rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+                                            crossorigin="anonymous">
+                                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                                            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                                            crossorigin="anonymous"></script> {% endcomment %}
+                                        <style>
+                                            body {
+                                                background-color: #f8f9fa; /* Bootstrap background color */
+                                                padding: 20px;
+                                            }
+                                    
+                                            .form-label {
+                                                font-weight: bold;
+                                            }
+                                    
+                                            .form-group {
+                                                margin-bottom: 15px;
+                                            }
+                                    
+                                            .form-control {
+                                                width: 100%;
+                                                padding: 10px;
+                                                box-sizing: border-box;
+                                            }
+                                    
+                                            .btn {
+                                                padding: 10px 20px;
+                                                font-size: 16px;
+                                                cursor: pointer;
+                                            }
+                                    
+                                            .result-label {
+                                                margin-top: 20px;
+                                            }
+                                        </style>
+                                    </head>
+                                    
+                                    <body>
+                                      
+                                        <form>
+                                        {% comment %} <div class="container">
+                                          <div class="form-group col-10 mb-1 mx-2 mt-4 mx-5"> {% endcomment %}
+                                            <div class="mb-3">
+                                              <label for="odNetPremium" class="form-label">OD/Net Premium<span class="text-danger">*</span></label>
+                                              <input type="number" name="odNetPremium" id="odNetPremium" class="form-control"  placeholder="0" required>
+                                          </div>
+                                          {% comment %} <div class="form-group col-10 mb-1 mx-2 mt-4 mx-5"> {% endcomment %}
+                                            <div class="mb-3">
+                                              <label for="commissionPercentage" class="form-label">Commission %<span class="text-danger">*</span></label>
+                                              <input type="number" name="commissionPercentage" id="commissionPercentage" class="form-control"  placeholder="0" required>
+                                          </div>
+                                            <button onclick="calculateProfit()" class="btn btn-success mb-3">Calculate Profit</button>
+                                    
+                                            {% comment %} <div class="result-label col-10 mb-1 mx-2 mt-4 mx-5"> {% endcomment %}
+                                            <div class="mb-3">
+                                              <label for="profitResult" class="form-label">Profit</label>
+                                              <input type="text" name="profitResult" id="profitResult" class="form-control"  placeholder="0" readonly>
+                                            </div>
+                                  
+                                          {% comment %} <div class="form-group mt-3 col-10 mb-1 mx-2 mt-4 mx-5"> {% endcomment %}
+                                          <div class="mb-3">
+                                            <label for="tdsPercentage" class="form-label">TDS %<span class="text-danger">*</span></label>
+                                            <input type="number" name="tdsPercentage" id="tdsPercentage" class="form-control" required value="5" placeholder="0"  readonly>
+                                          </div>
+                                          {% comment %} mb-1 mx-2 mt-4 mx-5 {% endcomment %}
+                                            <button onclick="calculateProfitAfterTDS()" class="btn btn-success mb-3">Calculate Profit After TDS</button>
+                                    
+                                            {% comment %} <div class="result-label col-10 mb-1 mx-2 mt-4 mx-5"> {% endcomment %}
+                                            <div class="mb-3">
+                                              <label for="profitAfterTDSResult" class="form-label">Profit After TDS:</label>
+                                              <input type="text" name="profitAfterTDSResult" id="profitAfterTDSResult" class="form-control" placeholder="0"  readonly>
+                                          </div>
+                                  
+                                          {% comment %} <div class="form-group col-10 mb-1 mx-2 mt-4 mx-5"> {% endcomment %}
+                                          <div class="mb-3">
+                                              <label for="payoutDiscount" class="form-label">payoutDiscount<span class="text-danger">*</span></label>
+                                              <input type="number" name="payoutDiscount" id="payoutDiscount" class="form-control"  placeholder="0" required>
+                                          </div>
+          
+                                          {% comment %} <div class="form-group col-10 mb-1 mx-2 mt-4 mx-5"> {% endcomment %}
+                                          <div class="mb-3">
+                                            <label for="payoutDiscount" class="form-label">PayoutAmount<span class="text-danger">*</span></label>
+                                            <input type="number" name="PayoutAmount" id="PayoutAmount" class="form-control" placeholder="0" required>
+                                          </div>
+                                  
+                                          <button onclick="calculateNetProfit()" class="btn btn-success mb-3">Calculate Net Profit</button>
+                                  
+                                          {% comment %} <div class="result-label col-10 mb-1 mx-2 mt-4 mx-5"> {% endcomment %}
+                                          <div class="mb-3">
+                                              <label for="netProfitResult" class="form-label">Net Profit:</label>
+                                              <input type="text" name="netProfitResult" id="netProfitResult" class="form-control" placeholder="0" readonly>
+                                          </div>
+                                    
+                                            <script>
+                                              function allowChange() {
+                                                var tdsInput = document.getElementById("tdsPercentage");
+                                                // Check if the input field is empty or contains the default value
+                                                if (tdsInput.value === "" || tdsInput.value === "5") {
+                                                    tdsInput.value = "5"; // Set default value to 5 if the field is empty or contains 5
+                                                } else {
+                                                    // If the user has entered a different value, remove the readonly attribute
+                                                    tdsInput.removeAttribute("readonly");
+                                                }
+                                              }
+                                        
+                                               // Add event listener to the input field
+                                                document.getElementById("tdsPercentage").addEventListener("click", allowChange);
+            
+                                                function calculateProfit() {
+                                                    var odNetPremium = parseFloat(document.getElementById('odNetPremium').value);
+                                                    var commissionPercentage = parseFloat(document.getElementById('commissionPercentage').value);
+                                    
+                                                    if (!isNaN(odNetPremium) && !isNaN(commissionPercentage)) {
+                                                        var profit = (odNetPremium * commissionPercentage) / 100;
+                                                        document.getElementById('profitResult').value = profit.toFixed(2);
+                                                    } else {
+                                                        alert('Please enter valid numeric values for OD/Net Premium and Commission Percentage.');
+                                                    }
+                                                }
+                                    
+                                                function calculateProfitAfterTDS() {
+                                                    var profit = parseFloat(document.getElementById('profitResult').value);
+                                                    var tdsPercentage = parseFloat(document.getElementById('tdsPercentage').value);
+                                    
+                                                    if (!isNaN(profit) && !isNaN(tdsPercentage)) {
+                                                        var profitAfterTDS = profit - (profit * tdsPercentage / 100);
+                                                        document.getElementById('profitAfterTDSResult').value = profitAfterTDS.toFixed(2);
+                                                    } else {
+                                                        alert('Please enter valid numeric values for Profit and TDS Percentage.');
+                                                    }
+                                                }
+                                    
+                                                function calculateNetProfit() {
+                                                    var profitAfterTDS = parseFloat(document.getElementById('profitAfterTDSResult').value);
+                                                    var payoutDiscount = parseFloat(document.getElementById('payoutDiscount').value);
+                                    
+                                                    if (!isNaN(profitAfterTDS) && !isNaN(payoutDiscount)) {
+                                                        var netProfit = profitAfterTDS - payoutDiscount;
+                                                        document.getElementById('netProfitResult').value = netProfit.toFixed(2);
+                                                    } else {
+                                                        alert('Please enter valid numeric values for Profit After TDS and Payout/Discount.');
+                                                    }
+                                                }
+                                            </script>
+                                        </div>
+                                    </body>
+                                    </html>
+                                    
+                                    {% comment %} <div class="col-10 mb-3 mt-4 mx-5"> {% endcomment %}
+                                    <div class="mb-3">
+                                      <label for="Executive" class="form-label">Executive <label>
+                                      <input type="text" name ='Executive' class="form-control" placeholder="Enter executive name" required >
+                                      </div>
+                                    <div class="mb-3">
+                                        <label for="DSA/Reference" class="form-label">DSA/Reference <label>
+                                        <input type="text" name ='DSA' class="form-control" placeholder="Enter DSA/Reference"  required >
+                                    </div> 
+                                    {% comment %} <div class="col-10 mb-3">
+                                      <label for="Executive" class="form-label">Executive</label>
+                                      <input type="number" name="Executive" class="form-control"  placeholder="Enter executive name" required>
+                                  </div> {% endcomment %}
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+                      
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Bootstrap Bundle with Popper -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+            
+            </body>
+            </html>
+            
+            
+                {% comment %} <br>
+                <br>
+                
+                <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Document</title>
+            </head>
+            <body> {% endcomment %}
+            
+            <!-- Your HTML content here -->
+            
+            {% comment %} <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1{% if end_date %}&end_date={{ end_date }}{% endif %}">&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}{% if end_date %}&end_date={{ end_date }}{% endif %}">previous</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+            
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}{% if end_date %}&end_date={{ end_date }}{% endif %}">next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}{% if end_date %}&end_date={{ end_date }}{% endif %}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div> {% endcomment %}
+            <div style="overflow-x: auto;">
+              <div style="overflow-y: auto; max-height: 400px;">
+                  <table class="table table-bordered" id="dataRecords" style="width: 100%;">
+                      <thead style="position: sticky; top: 0; background-color: white; z-index: 1;">
+                          <tr>
+                              <th style="border: 2px solid black;">Edit</th>
+                              <th style="border: 2px solid black;">Delete</th>
+                              <th style="border: 2px solid black;">Date</th>
+                              <th style="border: 2px solid black;">Name</th>
+                              <th style="border: 2px solid black;">Mobile Number</th>
+                              <th style="border: 2px solid black;">CKYC Number</th>
+                              <th style="border: 2px solid black;">Policy Number</th>
+                              <th style="border: 2px solid black;">Vehicle Number</th>
+                              <th style="border: 2px solid black;">Vehicle</th>
+                              <th style="border: 2px solid black;">Location</th>
+                              <th style="border: 2px solid black;">HP Bank</th>
+                              <th style="border: 2px solid black;">Business Type</th>
+                              <th style="border: 2px solid black;">Insurance Type</th>
+                              <th style="border: 2px solid black;">Insurance Portal</th>
+                              <th style="border: 2px solid black;">Insurance Company</th>
+                              <th style="border: 2px solid black;">Payment From Customer</th>
+                              <th style="border: 2px solid black;">Payment SOS</th>
+                              <th style="border: 2px solid black;">Policy Start Date</th>
+                              <th style="border: 2px solid black;">Policy End Date</th>
+                              <th style="border: 2px solid black;">NCB</th>
+                              <th style="border: 2px solid black;">Premium</th>
+                              <th style="border: 2px solid black;">OD/Net Premium</th>
+                              <th style="border: 2px solid black;">Commission</th>
+                              <th style="border: 2px solid black;">Profit</th>
+                              <th style="border: 2px solid black;">TDS</th>
+                              <th style="border: 2px solid black;">Profit After TDS</th>
+                              <th style="border: 2px solid black;">Net Profit</th>
+                              <th style="border: 2px solid black;">Payout/Discount %</th>
+                              <th style="border: 2px solid black;">Payout/Discount Amount</th>
+                              <th style="border: 2px solid black;">Executive</th>
+                              <th style="border: 2px solid black;">DSA</th>
+                          </tr>
+                      </thead>
+                <tbody>
+                  {% for item in data %}
+                  <tr>
+                    <td style="border: 2px solid black;">
+                      <!-- Edit button -->
+                      <form action="{% url 'edit_policy' record_id=item.id %}" method="get" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-default" style="background: none; border: none;">
+                          <i class='fas fa-edit' style='font-size:15px; color: blue;'></i> 
+                        </button>
+                      </form>
+                      </td>
+                      <td style="border: 2px solid black;">
+                      <!-- Delete button -->
+                      <form action="{% url 'delete_record' item.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this record?');" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-default" style="background: none; border: none;">
+                          <i class="fas fa-trash-alt" style="color: red;"></i> 
+                        </button>
+                      </form>
+                    </td>
+                    <td style="border: 2px solid black;">{{ item.date }}</td>
+                    <td style="border: 2px solid black;">{{ item.name }}</td>
+                    <td style="border: 2px solid black;">{{ item.number }}</td>
+                    <td style="border: 2px solid black;">{{ item.ckyc }}</td>
+                    <td style="border: 2px solid black;">{{ item.p_number }}</td>
+                    <td style="border: 2px solid black;">{{ item.v_number }}</td>
+                    <td style="border: 2px solid black;">{{ item.Vehicle }}</td>
+                    <td style="border: 2px solid black;">{{ item.Location }}</td>
+                    <td style="border: 2px solid black;">{{ item.HP_bank }}</td>
+                    <td style="border: 2px solid black;">{{ item.business_type }}</td>
+                    <td style="border: 2px solid black;">{{ item.insurance_type }}</td>
+                    <td style="border: 2px solid black;">{{ item.insurance_portal }}</td>
+                    <td style="border: 2px solid black;">{{ item.I_company }}</td>
+                    <td style="border: 2px solid black;">{{ item.payment }}</td>
+                    <td style="border: 2px solid black;">{{ item.payment_sos }}</td>
+                    <td style="border: 2px solid black;">{{ item.PS_date }}</td>
+                    <td style="border: 2px solid black;">{{ item.PE_date }}</td>
+                    <td style="border: 2px solid black;">{{ item.Ncb }}</td>
+                    <td style="border: 2px solid black;">{{ item.Premium }}</td>
+                    <td style="border: 2px solid black;">{{ item.odNetPremium }}</td>
+                    <td style="border: 2px solid black;">{{ item.commissionPercentage }}</td>
+                    <td style="border: 2px solid black;">{{ item.profitResult }}</td>
+                    <td style="border: 2px solid black;">{{ item.tdsPercentage }}</td>
+                    <td style="border: 2px solid black;">{{ item.profitAfterTDSResult }}</td>
+                    <td style="border: 2px solid black;">{{ item.netProfitResult }}</td>
+                    <td style="border: 2px solid black;">{{ item.payoutDiscount }}</td>
+                    <td style="border: 2px solid black;">{{ item.PayoutAmount }}</td>
+                    <td style="border: 2px solid black;">{{ item.Executive }}</td>
+                    <td style="border: 2px solid black;">{{ item.DSA }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+              
+              
+              <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#dataRecords').DataTable();
+                });
+              </script>
+            <!-- Your JavaScript code here -->
+            <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+            <script>
+              
+                function search() {
+                    // Get the input value from the search input field
+                    var input = document.getElementById('searchInput').value.trim().toLowerCase();
+                    
+                    // Get all table rows (excluding header row)
+                    var rows = document.querySelectorAll('#dataRecords tbody tr');
+                    
+                    // Loop through each row
+                    rows.forEach(function(row) {
+                        // Get all cells in the row
+                        var cells = row.querySelectorAll('td');
+                        var found = false;
+                        
+                        // Loop through each cell in the row
+                        cells.forEach(function(cell) {
+                            // Check if the cell text contains the input text
+                            if (cell.textContent.trim().toLowerCase().includes(input)) {
+                                found = true;
+                            }
+                        });
+                        
+                        // Toggle row visibility based on search result
+                        row.style.display = found ? '' : 'none';
+                    });
+                }
+                
+                
+                    function downloadDataRecords() {
+                        // Get the table
+                        var table = document.getElementById("dataRecords");
+                        var rows = table.querySelectorAll("tr");
+                        
+                        // Initialize CSV string
+                        var csv = [];
+                        
+                        // Iterate over rows and columns to build CSV
+                        for (var i = 0; i < rows.length; i++) {
+                            var row = [], cols = rows[i].querySelectorAll("td, th");
+                            for (var j = 0; j < cols.length; j++) {
+                                // Remove any commas from the content to prevent CSV formatting issues
+                                var content = cols[j].innerText.replace(/,/g, "");
+                                row.push(content);
+                            }
+                            // Join row elements into a string and add to CSV
+                            csv.push(row.join(","));
+                        }
+                        
+                        // Combine rows into a single CSV string
+                        var csvString = csv.join("\n");
+                        
+                        // Create a blob containing the CSV data
+                        var blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+                        
+                        // Create a download link
+                        var link = document.createElement("a");
+                        if (link.download !== undefined) { // Feature detection
+                            // Set download link attributes
+                            var url = URL.createObjectURL(blob);
+                            link.setAttribute("href", url);
+                            link.setAttribute("download", "data_records.csv");
+                            
+                            // Append link to the body
+                            document.body.appendChild(link);
+                            
+                            // Trigger the download
+                            link.click();
+                            
+                            // Remove the link from the body
+                            document.body.removeChild(link);
+                        } else {
+                            alert("Your browser does not support downloading files.");
+                        }
+                    }
+                  
+              document.addEventListener("DOMContentLoaded", function() {
+                var currentUrl = window.location.href;
+
+                var sidebarLinks = document.querySelectorAll(".sidebar-item a");
+
+                sidebarLinks.forEach(function(link) {
+                  if (link.href === currentUrl) {
+                    link.classList.add("active");
+                  }
+                });
+              });
+            </script>
+          </div>
+        </div>
+      </div>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <!-- Include necessary Plotly.js library -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        .plotly-card {
+            width: 100%; /* Set width of the card */
+            height: auto; /* Allow height to adjust based on content */
+            margin: 20px; /* Set margin around the card */
+            padding: 10px; /* Set padding inside the card */
+            background-color: #ffffff; /* Set background color of the card */
+            border-radius: 7px; /* Set border radius for rounded corners */
+            box-shadow: 2px 10px 20px rgba(0, 0, 0, 0.1); /* Add shadow for visual depth */
+            display: flex; /* Use flexbox layout */
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+        }
+        .plotly-card .card-body {
+            padding: 15px; /* Adjust padding of the card body */
+            font-size: 16px; /* Set font size */
+            text-align: center; /* Center text horizontally */
+        }
+    </style>
+</head>
+<body>
+    <!-- Display Plotly cards for each metric -->
+    <div class="plotly-card overflow-hidden" id="plotly-profit-after-tds-card">
+        <div class="card-body">
+            {{ plot_html_payout_amount|safe }}
+        </div>
+    </div>
+    <div class="plotly-card overflow-hidden" id="plotly-profit-card">
+        <div class="card-body">
+            {{ plot_html_profit|safe }}
+        </div>
+    </div>
+    <div class="plotly-card overflow-hidden" id="plotly-net-profit-card">
+        <div class="card-body">
+            {{ plot_html_net_profit|safe }}
+        </div>
+    </div>
+    <div class="plotly-card overflow-hidden" id="plotly-profit-after-tds-card">
+        <div class="card-body">
+            {{ plot_html_profit_after_tds|safe }}
+        </div>
+    </div>
+    <div class="plotly-card overflow-hidden" id="plotly-profit-after-tds-card">
+        <div class="card-body">
+            {{ plot_html_p_number|safe }}
+        </div>
+    </div>
+    <div class="plotly-card overflow-hidden" id="plotly-profit-after-tds-card">
+        <div class="card-body">
+            {{ plot_html_premium|safe }}
+        </div>
+    </div>
+    <div class="plotly-card overflow-hidden" id="plotly-profit-after-tds-card">
+        <div class="card-body">
+            {{ plot_html_odnet_premium|safe }}
+        </div>
+    </div>
+    <div class="plotly-card overflow-hidden" id="plotly-profit-after-tds-card">
+        <div class="card-body">
+            {{ plot_html_commission_percentage|safe }}
+        </div>
+    </div>
+
+    <div class="plotly-card overflow-hidden" id="plotly-profit-after-tds-card">
+        <div class="card-body">
+            {{ plot_html_total_unique_names|safe }}        
+        </div>
+    </div>
+    <div class="plotly-card overflow-hidden" id="plotly-profit-after-tds-card">
+        <div class="card-body">
+            {{ plot_html_total_name|safe }}        
+        </div>
+    </div>
+    
+</body>
+</html>

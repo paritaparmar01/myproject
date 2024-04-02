@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS Finance</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/logos/logo.png' %}" />
+    <!-- Bootstrap 4 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- Custom styles -->
+   
+    <style>
+        /* Custom CSS styles */
+        /* Made with love by Mutiullah Samim*/
+    
+        @import url('https://fonts.googleapis.com/css?family=Numans');
+    
+        html,body{
+            background-image: url("{% static 'images/backgrounds/1.jpg'%}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 81%;
+            font-family: 'Numans', sans-serif;
+        }
+    
+        .container{
+            height: 100%;
+            align-content: center;
+        }
+    
+        .card{
+            height: 370px;
+            margin-top: auto;
+            margin-bottom: auto;
+            width: 400px;
+            background-color: rgba(0,0,0,0.7) !important; /* Adjust transparency here */
+        }
+    
+        .social_icon span{
+            font-size: 60px;
+            margin-left: 10px;
+            color: #FFC312;
+        }
+    
+        .social_icon span:hover{
+            color: white;
+            cursor: pointer;
+        }
+    
+        .card-header h3{
+            color: white;
+        }
+    
+        .social_icon{
+            position: absolute;
+            right: 20px;
+            top: -45px;
+        }
+    
+        .input-group-prepend span{
+            width: 50px;
+            background-color: #FFC312;
+            color: black;
+            border:0 !important;
+        }
+    
+        input:focus{
+            outline: 0 0 0 0  !important;
+            box-shadow: 0 0 0 0.7 !important;
+        }
+    
+        .remember{
+            color: white;
+        }
+    
+        .remember input{
+            width: 20px;
+            height: 20px;
+            margin-left: 15px;
+            margin-right: 5px;
+        }
+    
+        .login_btn{
+            color: black;
+            background-color: #FFC312;
+            width: 100px;
+        }
+    
+        .login_btn:hover{
+            color: black;
+            background-color: white;
+        }
+    
+        .links{
+            color: white;
+        }
+    
+        .links a{
+            margin-left: 4px;
+        }
+        
+        .custom-logo {
+            width: 100px; /* Adjust width as needed */
+            height: auto; /* Let the height adjust proportionally */
+        }
+
+        .custom-logo {
+            width: 100px; /* Adjust width as needed */
+            height: auto; /* Let the height adjust proportionally */
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.9); /* Shadow effect */
+        }
+        
+    </style>
+    
+</head>
+<body>
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-header">
+                <h3>Sign In</h3>
+                <div class="d-flex justify-content-end social_icon">
+                    <img src="{% static 'images/logos/logo.png' %}" alt="Custom Logo" class="custom-logo">
+                </div>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Username" id="username" name="username">
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+                    </div>
+                    <div class="row align-items-center remember">
+                        <input type="checkbox">Remember Me
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Login" class="btn float-right login_btn">
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-center links">
+                    Don't have an account?<a href="{% url 'signup' %}">Sign Up</a>
+                </div>
+                <!-- <div class="d-flex justify-content-center">
+                    <a href="/forgotpwd/">Forgot your password?</a>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if request.GET.next == 'password_reset' %}
+    <div class="container mt-4">
+        <div class="alert alert-success" role="alert">
+            Password reset successful. You can now log in with your new password.
+        </div>
+    </div>
+{% endif %}
+
+<!-- Bootstrap 4 JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-uN9Q7o4wzf01e6Hg0PoSRP/r1Hq3RMbR3S/pXwCz3cYJ6fujzDOByTmlqnlrUkFb" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-JcKb8q3iqJ61gNVzv8gCVQn7u3+M/SJww/a+YL9Ht0b6Zi8Z+8OvBq5Bk/4f+Z3G" crossorigin="anonymous"></script>
+</body>
+</html>

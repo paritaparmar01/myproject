@@ -1,0 +1,134 @@
+<!-- data_display.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Display</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <!-- <h1>Data from MySQL Database</h1> This line added here -->
+    <table>
+        <thead>
+            <!-- <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Number</th>
+                <th>CKYC</th>
+                <th>Policy Number</th>
+                <th>Vehicle Number</th>
+                <th>Vehicle</th>
+                <th>Customer Number</th>
+                <th>Email Number</th>
+                <th>Location</th>
+                <th>HP Bank</th>
+                <th>Business Type</th>
+                <th>Insurance Type</th>
+                <th>Insurance Portal</th>
+                <th>Insurance Company</th>
+                <th>Payment</th>
+                <th>SOS Payment</th>
+                <th>Policy Start Date</th>
+                <th>Policy End Date</th>
+                <th>NCB</th>
+                <th>Premium</th>
+                <th>OD Net Premium</th>
+                <th>Commission Percentage</th>
+                <th>Profit Result</th>
+                <th>TDS Percentage</th>
+                <th>Profit After TDS Result</th>
+                <th>Payout Discount</th>
+                <th>Payout Amount</th>
+                <th>Net Profit Result</th>
+                <th>Executive</th>
+                <th>DSA</th>
+            </tr> -->
+        </thead>
+        <tbody>
+            {% for policy_issue in policy_issues %}
+            <tr>
+                <td>{{ date }}</td>
+                <td>{{ policy_issue.name }}</td>
+                <td>{{ policy_issue.number }}</td>
+                <td>{{ policy_issue.ckyc }}</td>
+                <td>{{ policy_issue.p_number }}</td>
+                <td>{{ policy_issue.v_number }}</td>
+                <td>{{ policy_issue.Vehicle }}</td>
+                <td>{{ policy_issue.c_number }}</td>
+                <td>{{ policy_issue.e_number }}</td>
+                <td>{{ policy_issue.Location }}</td>
+                <td>{{ policy_issue.HP_bank }}</td>
+                <td>{{ policy_issue.business_type }}</td>
+                <td>{{ policy_issue.insurance_type }}</td>
+                <td>{{ policy_issue.insurance_portal }}</td>
+                <td>{{ policy_issue.I_company }}</td>
+                <td>{{ policy_issue.payment }}</td>
+                <td>{{ policy_issue.payment_sos }}</td>
+                <td>{{ policy_issue.PS_date }}</td>
+                <td>{{ policy_issue.PE_date }}</td>
+                <td>{{ policy_issue.Ncb }}</td>
+                <td>{{ policy_issue.Premium }}</td>
+                <td>{{ policy_issue.odNetPremium }}</td>
+                <td>{{ policy_issue.commissionPercentage }}</td>
+                <td>{{ policy_issue.profitResult }}</td>
+                <td>{{ policy_issue.tdsPercentage }}</td>
+                <td>{{ policy_issue.profitAfterTDSResult }}</td>
+                <td>{{ policy_issue.payoutDiscount }}</td>
+                <td>{{ policy_issue.PayoutAmount }}</td>
+                <td>{{ policy_issue.netProfitResult }}</td>
+                <td>{{ policy_issue.Executive }}</td>
+                <td>{{ policy_issue.DSA }}</td>
+            </tr>
+            {% endfor %}
+            {{ html_table|safe }}
+            <div>
+                <h2>Top 5 Insurance Companies by Premium</h2>
+                {{ plot_html_bar|safe }}
+            </div>
+        
+            <!-- Line Chart -->
+            <div>
+                <h2>Net Profit Over Time</h2>
+                {{ plot_html_line|safe }}
+            </div>
+
+            <div>
+                <h2>Net profit by bussness  type</h2>
+                {{ plot_html_donut_2|safe }}
+            </div>
+
+            <div>
+                <h2>Net profit by Insurance Type</h2>
+                {{ plot_html_donut|safe }}
+            </div>
+            
+            <div>
+                <h2>Net profit by Insurance Type</h2>
+                {{ plot_html_funnel|safe }}
+            </div>
+
+            {% for card in cards %}
+                <div id="{{ forloop.counter }}" class="card">
+                    {{ card|safe }}
+                </div>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+

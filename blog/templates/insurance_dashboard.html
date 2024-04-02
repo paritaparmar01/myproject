@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Dashboard</title>
+    <!-- Include necessary Plotly.js library -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Insurance Dashboard</h2>
+        <div class="card">
+            {{ plot_html_total_unique_names|safe }}
+        </div>
+    </div>
+</body>
+</html>

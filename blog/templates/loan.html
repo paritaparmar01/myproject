@@ -1,0 +1,570 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SOS Finance</title>
+  <link rel="shortcut icon" type="image/png" href="{% static 'images/logos/logo.png' %}" />
+  <link rel="stylesheet" href="{% static 'css/styles.min.css' %}" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> <!-- Add this meta tag to set viewport size -->
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> 
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+  <style>
+    body {
+      font-size: 100%;
+    }
+  
+    h2 {
+      text-align: center;
+      padding: 20px 0;
+    }
+  
+    table caption {
+      padding: .5em 0;
+    }
+  
+    table.dataTable th,
+    table.dataTable td {
+      white-space: nowrap;
+    }
+  
+    .custom-table-border {
+      border-color: #2d2d56; /* Lighter border color for specific table */
+    }
+  
+    .p {
+      text-align: center;
+      padding-top: 140px;
+      font-size: 16px;
+    }
+  
+</style>
+</head>
+
+<body>
+  
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between">
+          <a href="/index.html" class="text-nowrap logo-img">
+            <img src="{% static 'images/logos/logo.png' %}" width="180" alt="" />
+          </a>
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Home</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'home' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">FORMS</span>
+            </li>
+            
+            
+           
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'loan' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-file-description"></i>
+                </span>
+                <span class="hide-menu">Loan Enquiry</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'policy_issue' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-file-description"></i>
+                </span>
+                <span class="hide-menu">Policy Issue</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'renewal' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-file-description"></i>
+                </span>
+                <span class="hide-menu">Renewal Policy</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'insurance_enquiry' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-file-description"></i>
+                </span>
+                <span class="hide-menu">Insurancce Enquiry</span>
+              </a>
+            </li>
+            
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">AUTH</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'login' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-login"></i>
+                </span>
+                <span class="hide-menu">Login</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'signup' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-user-plus"></i>
+                </span>
+                <span class="hide-menu">Register</span>
+              </a>
+            </li>
+            
+          </ul>
+         
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+    <!-- Sidebar End -->
+    <!-- Main wrapper -->
+    <div class="body-wrapper">
+      <!--  Header Start -->
+      <header class="app-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <ul class="navbar-nav">
+            <li class="nav-item d-block d-xl-none">
+              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+                <i class="ti ti-menu-2"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              {% comment %} <a class="nav-link nav-icon-hover" href="javascript:void(0)">
+                <i class="ti ti-bell-ringing"></i>
+                <div class="notification bg-primary rounded-circle"></div>
+              </a> {% endcomment %}
+            </li>
+          </ul>
+          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+              <a href="{% url 'logout' %}" target="_blank" class="btn btn-primary">Logout</a>
+              {% comment %} <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank" class="btn btn-primary">Download Free</a>
+              <li class="nav-item dropdown">
+                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                  aria-expanded="false"> {% endcomment %}
+                  {% comment %} <img src="static/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle"> {% endcomment %}
+                {% comment %} </a> {% endcomment %}
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                  <div class="message-body">
+                    
+                    <a href="{% url 'logout' %}" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <!--  Header End -->
+      <div class="container-fluid">
+        <div class="container-fluid">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title fw-semibold mb-4">Loan Enquiry Form</h5>
+              <div class="card">
+                <div class="card-body">
+                  <style>input[type=text], select, textarea {
+                    width: 100%;
+                    padding: 12px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    resize: vertical;
+                  }</style>
+                  <!-- Form content -->
+                  <div class="container mt-4">
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <div class="container mt-4">
+                          {% comment %} <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Enter Search Query" id="searchInput">
+                            <button class="btn btn-outline-secondary" type="button" onclick="search()">Search</button>
+                          </div> {% endcomment %}
+                        </div>
+                      </div>
+                      <div class="col-md-6 d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Loan Enquiry</button>
+                        <button type="button" class="btn btn-success" onclick="downloadDataRecords()">
+                          <i class="bi bi-download"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Loan Enquiry Form</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                {% if check == True %}
+                                <center><h1 style="color: green;">Data Submitted successfully.</h1></center>
+                                {% endif %}
+                                <div class="modal-body">
+                                  {% if check == True %}
+                                  <center><h1 style="color: green;">Data Submitted successfully.</h1></center>
+                                  {% endif %}
+                                  <form method="post" enctype="multipart/form-data">
+                                      {% csrf_token %}
+                                      {{ form.as_p }}
+                                      <div class="container">
+                                          <div class="mb-3">
+                                              <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                                              <input type="text" class="form-control" id="name" name="name" placeholder="Loan Holder Name" required>
+                                          </div>
+                                          <div class="mb-3">
+                                              <label for="number" class="form-label">Mobile Number <span class="text-danger">*</span></label>
+                                              <input type="tel" class="form-control" id="number" name="number" pattern="^[0-9]{10}$" maxlength="10" required placeholder="Enter 10-digit number">
+                                          </div>
+                                          <div class="mb-3">
+                                              <label for="email" class="form-label">Email</label>
+                                              <input type="email" class="form-control" id="email" name="email"  placeholder="Enter your email address" aria-describedby="emailHelp">
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-25">
+                                                <label for="remarks"><b>Remarks</b></label>
+                                            </div>
+                                            <div class="col-75">
+                                                <input type="text" class="form-control" id="remarks" name="remarks" placeholder="Write something.." style="height:100px; width: 100%;">
+                                            </div>
+                                          </div>
+                                          <!-- RC Book field with radio buttons -->
+                                          <div class="mb-3">
+                                              <p class="form-label fw-bold">RC Book</p>
+                                              <div class="form-check">
+                                                  <input class="form-check-input" type="radio" name="rc_book_radio" id="rcBookRadioYes" value="yes" onchange="toggleRcBookImageField()">
+                                                  <label class="form-check-label" for="rcBookRadioYes">Yes</label>
+                                              </div>
+                                              <div class="form-check">
+                                                  <input class="form-check-input" type="radio" name="rc_book_radio" id="rcBookRadioNo" value="no" onchange="toggleRcBookImageField()">
+                                                  <label class="form-check-label" for="rcBookRadioNo">No</label>
+                                              </div>
+                                          </div>
+                                          
+                                          <!-- RC Book image field -->
+                                          <div id="rcBookInputField" class="mb-3" style="display: none;">
+                                              <label for="rcBook" class="form-label fw-bold">RC Book (Image/PDF)</label>
+                                              <input type="file" name="rc_book_image">
+                                          </div>
+                              
+                                          <div class="mb-3">
+                                              <label for="email" class="form-label">Document1</label>
+                                              <input type="file" class="form-label fw-bold" id="document1" name="document1">
+                                          </div>
+                              
+                                          <div class="mb-3">
+                                              <label for="email" class="form-label">Document2</label>
+                                              <input type="file" class="form-label fw-bold" id="document2" name="document2">
+                                          </div>
+                              
+                                          <div class="mb-3">
+                                              <label for="email" class="form-label">Document3</label>
+                                              <input type="file" class="form-label fw-bold" id="document3" name="document3">
+                                          </div>
+                              
+                                          <div class="mb-3">
+                                              <label for="email" class="form-label">Document4</label>
+                                              <input type="file" class="form-label fw-bold" id="document4" name="document4">
+                                          </div>
+                              
+                                          <div class="mb-3">
+                                              <label for="email" class="form-label">Document5</label>
+                                              <input type="file" class="form-label fw-bold" id="document5" name="document5">
+                                          </div>
+                              
+                                          <!-- Button to Submit the Form -->
+                                          <button type="submit" class="btn btn-primary">Submit</button>
+                                      </div>
+                                  </form>
+                              </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="overflow-x: auto;">
+                  <div style="overflow-y: auto; max-height: 400px;">
+                      <table class="table table-bordered" id="dataRecords">
+                          <thead style="position: sticky; top: 0; background-color: white; z-index: 1;">
+                              <tr>
+                                  <th style="border: 2px solid black;">Edit</th>
+                                  <th style="border: 2px solid black;">Delete</th>
+                                  <th style="border: 2px solid black;">Name</th>
+                                  <th style="border: 2px solid black;">Number</th>
+                                  <th style="border: 2px solid black;">Email</th>
+                                  <th style="border: 2px solid black;">Remarks</th>
+                                  <th style="border: 2px solid black;">RC Book</th>
+                                  <th style="border: 2px solid black;">RC Book Image</th>
+                                  <th style="border: 2px solid black;">Document</th>
+                                  <th style="border: 2px solid black;">Document</th>
+                                  <th style="border: 2px solid black;">Document</th>
+                                  <th style="border: 2px solid black;">Document</th>
+                                  <th style="border: 2px solid black;">Document</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {% for item in data %}
+                              <tr>
+                                  <td style="border: 2px solid black;">
+                                      <!-- Edit button -->
+                                      <form action="{% url 'edit_loan' item.id %}" method="get" style="display: inline;">
+                                          {% csrf_token %}
+                                          <button type="submit" class="btn btn-default" style="background: none; border: none;">
+                                              <i class='fas fa-edit' style='font-size:15px; color: blue;'></i>
+                                          </button>
+                                      </form>
+                                  </td>
+                                  <td style="border: 2px solid black;">
+                                      <!-- Delete button -->
+                                      <form action="{% url 'delete_loan_record' item.id %}" method="post"
+                                          onsubmit="return confirm('Are you sure you want to delete this record?');">
+                                          {% csrf_token %}
+                                          <button type="submit" style="background: none; border: none;">
+                                              <i class="material-icons" style="color: red;">delete</i>
+                                          </button>
+                                      </form>
+                                  </td>
+                                  <td style="border: 2px solid black;">{{ item.name }}</td>
+                                  <td style="border: 2px solid black;">{{ item.number }}</td>
+                                  <td style="border: 2px solid black;">{{ item.email }}</td>
+                                  <td style="border: 2px solid black;">{{ item.remarks }}</td>
+                                  <td style="border: 2px solid black;">{% if item.rc_book %} Yes {% else %} No {% endif %}</td>
+                                  <td style="border: 2px solid black;">
+                                      {% if item.rc_book_image %}
+                                      <a href="{{ item.rc_book_image.url }}" target="_blank">Download</a>
+                                      {% else %}
+                                      No RC Book Image
+                                      {% endif %}
+                                  </td>
+                                  <td style="border: 2px solid black;">{% if item.document1 %}<a href="{{ item.document1.url }}"
+                                          target="_blank">Document</a>{% else %}No Document{% endif %}</td>
+                                  <td style="border: 2px solid black;">{% if item.document2 %}<a href="{{ item.document2.url }}"
+                                          target="_blank">Document</a>{% else %}No Document{% endif %}</td>
+                                  <td style="border: 2px solid black;">{% if item.document3 %}<a href="{{ item.document3.url }}"
+                                          target="_blank">Document</a>{% else %}No Document{% endif %}</td>
+                                  <td style="border: 2px solid black;">{% if item.document4 %}<a href="{{ item.document4.url }}"
+                                          target="_blank">Document</a>{% else %}No Document{% endif %}</td>
+                                  <td style="border: 2px solid black;">{% if item.document5 %}<a href="{{ item.document5.url }}"
+                                          target="_blank">Document</a>{% else %}No Document{% endif %}</td>
+                              </tr>
+                              {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+              
+              
+              
+              
+                <script src="{% static 'libs/jquery/dist/jquery.min.js' %}"></script>
+                <script src="{% static 'libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+                <script src="{% static 'js/sidebarmenu.js' %}"></script>
+                <script src="{% static 'js/app.min.js' %}"></script>
+                <script src="{% static 'libs/simplebar/dist/simplebar.js' %}"></script>
+            
+                <script>
+                  document.addEventListener("DOMContentLoaded", function() {
+                      // Form submit event listener
+                      document.querySelector("form").addEventListener("submit", function(event) {
+                          // Collect data from RC Book field
+                          var rcBookRadioYes = document.getElementById('rcBookRadioYes');
+                          var rcBookValue = rcBookRadioYes.checked ? 'Yes' : 'No';
+              
+                          // Collect data from RC Book Image field
+                          var rcBookImage = document.querySelector('input[name="rc_book_image[]"]').files[0];
+              
+                          // Check if RC Book data is available
+                          if (rcBookValue === 'Yes') {
+                              console.log('RC Book Data:', rcBookValue);
+                          }
+              
+                          // Check if RC Book Image data is available
+                          if (rcBookImage) {
+                              console.log('RC Book Image Data:', rcBookImage);
+                          }
+              
+                          // Uncomment this line to allow form submission
+                          // event.preventDefault();
+                      });
+                  });
+              </script>
+              <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+              <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+              
+              
+              <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#dataRecords').DataTable();
+                });
+              </script>
+              <!-- Bootstrap JS bundle -->
+              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+              <script>
+                  // JavaScript code to dynamically adjust textarea width based on label width
+                  window.addEventListener('DOMContentLoaded', function() {
+                      // Get the width of the label
+                      var labelWidth = document.querySelector('.col-25').offsetWidth;
+
+                      // Set the width of the textarea based on the label width
+                      var textarea = document.getElementById('subject');
+                      textarea.style.width = 'calc(100% - ' + labelWidth + 'px)';
+                  });
+                  function toggleRcBookImageField() {
+                      var rcBookRadioYes = document.getElementById('rcBookRadioYes');
+                      var rcBookInputField = document.getElementById('rcBookInputField');
+                      if (rcBookRadioYes.checked) {
+                          rcBookInputField.style.display = 'block';
+                      } else {
+                          rcBookInputField.style.display = 'none';
+                      }
+                  }
+          
+                  function addDocumentField() {
+                      var clone = document.querySelector('#defaultDocumentField').cloneNode(true);
+                      var deleteButton = clone.querySelector('.delete-button');
+          
+                      deleteButton.addEventListener('click', function () {
+                          deleteDocumentField(this);
+                      });
+          
+                      deleteButton.removeAttribute('disabled'); // Enable delete button for cloned document field
+          
+                      clone.querySelectorAll("input").forEach(function (input) {
+                          input.value = ""; // Clear values in cloned inputs
+                      });
+          
+                      // Append document item to the list
+                      var documentContainer = document.getElementById('documentContainer');
+                      documentContainer.appendChild(clone);
+                  }
+          
+                  function deleteDocumentField(button) {
+                      var parentDiv = button.parentElement;
+                      var isDefaultField = parentDiv.classList.contains('document-fields') && parentDiv.id === 'defaultDocumentField';
+          
+                      // Check if the clicked element is the default document field
+                      // If it is, do not remove it
+                      if (!isDefaultField && confirm('Are you sure you want to delete this document?')) {
+                          parentDiv.remove();
+                      }
+                  }
+          
+                  function search() {
+                      // Get the input value
+                      var input = document.getElementById('searchInput').value.trim().toLowerCase();
+              
+                      // Get all tables in the document
+                      var tables = document.querySelectorAll('table');
+              
+                      // Loop through each table
+                      for (var i = 0; i < tables.length; i++) {
+                          var rows = tables[i].querySelectorAll('tr');
+              
+                          // Loop through all table rows, starting from the second row (index 1)
+                          for (var j = 1; j < rows.length; j++) {
+                              var row = rows[j];
+                              var found = false;
+              
+                              // Check each cell in the row for a match with the search query
+                              for (var k = 0; k < row.cells.length; k++) {
+                                  var cellText = row.cells[k].textContent.trim().toLowerCase();
+                                  if (cellText.includes(input)) {
+                                      found = true;
+                                      break;
+                                  }
+                              }
+              
+                              // Toggle row visibility based on whether any cell in the row matches the search query
+                              if (found) {
+                                  row.style.display = '';
+                              } else {
+                                  row.style.display = 'none';
+                              }
+                          }
+                      }
+                  }
+          
+                  function downloadDataRecords() {
+                      var table = document.getElementById("dataRecords");
+                      var csv = [];
+                      
+                      // Get data rows
+                      for (var i = 0; i < table.rows.length; i++) {
+                          var row = [];
+                          for (var j = 0; j < table.rows[i].cells.length; j++) {
+                              row.push(table.rows[i].cells[j].innerText);
+                          }
+                          csv.push(row.join(","));
+                      }
+                      
+                      csv = csv.join("\n");
+          
+                      var blob = new Blob([csv], { type: 'text/csv' });
+          
+                      var a = document.createElement("a");
+                      a.href = URL.createObjectURL(blob);
+                      a.download = "data_records.csv";
+                      document.body.appendChild(a);
+                      a.click();
+                      document.body.removeChild(a);
+                  }// Your JavaScript functions here
+              </script>
+                
+                <!-- Bootstrap JS bundle -->
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Container fluid -->
+      </div>
+      <!-- End Page wrapper  -->
+    </div>
+    <!-- End Body wrapper -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="/__/firebase/9.4.0/firebase-app.js"></script>
+    <script src="/__/firebase/9.4.0/firebase-analytics.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="/__/firebase/9.4.0/firebase-auth.js"></script>
+    <script src="/__/firebase/9.4.0/firebase-firestore.js"></script>
+    <script src="/__/firebase/9.4.0/firebase-storage.js"></script>
+    <script src="/__/firebase/init.js"></script>
+  </body>
+</html>

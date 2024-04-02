@@ -1,0 +1,462 @@
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SOS Finance</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="shortcut icon" type="image/png" href="{% static 'images/logos/logo.png' %}" />
+  <link rel="stylesheet" href="{% static 'css/styles.min.css' %}" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+  <!-- download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-size: 100%;
+    }
+  
+    h6 {
+      text-align: center;
+      padding: 20px 0;
+    }
+  
+    table caption {
+      padding: .5em 0;
+    }
+  
+    table.dataTable th,
+    table.dataTable td {
+      white-space: nowrap;
+    }
+  
+    .custom-table-border {
+      border-color: #2d2d56; /* Lighter border color for specific table */
+    }
+  
+    .p {
+      text-align: center;
+      padding-top: 140px;
+      font-size: 16px;
+    }
+    .chart-container {
+      height: 80px; /* Set the height of the chart container */
+      width: 80%; /* Set the width of the chart container */
+    } 
+    
+    .row .col-md-4 .card .card-body .dashboard-heading {
+        font-size: 52px; /* Adjust the font size as per your preference */
+    }
+    .logo-img {
+    width: 24px; /* Set the width of the logo */
+    height: auto; /* Maintain aspect ratio */
+    /* Adjust the height as needed */
+  }
+  .dashboard-text {
+      font-size: 150px;
+  }
+ </style>
+  
+</head>
+
+<body>
+  
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between">
+          <a href="/index.html" class="text-nowrap logo-img">
+            <img src="{% static 'images/logos/logo.png' %}" width="180" alt="" />
+          </a>
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Home</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'home' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">FORMS</span>
+            </li>
+            
+            
+           
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'loan' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-file-description"></i>
+                </span>
+                <span class="hide-menu">Loan Enquiry</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'policy_issue' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-file-description"></i>
+                </span>
+                <span class="hide-menu">Policy Issue</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'renewal' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-file-description"></i>
+                </span>
+                <span class="hide-menu">Renewal Policy</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'insurance_enquiry' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-file-description"></i>
+                </span>
+                <span class="hide-menu">Insurancce Enquiry</span>
+              </a>
+            </li>
+            
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">AUTH</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'login' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-login"></i>
+                </span>
+                <span class="hide-menu">Login</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'signup' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-user-plus"></i>
+                </span>
+                <span class="hide-menu">Register</span>
+              </a>
+            </li>
+            
+          </ul>
+         
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+    </aside>
+    <!-- Sidebar End -->
+    <!-- Main wrapper -->
+    <div class="body-wrapper">
+      <!--  Header Start -->
+<header class="app-header">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <ul class="navbar-nav">
+      <li class="nav-item d-block d-xl-none">
+        <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+          <i class="ti ti-menu-2"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        {% comment %}
+        <a class="nav-link nav-icon-hover" href="javascript:void(0)">
+          <i class="ti ti-bell-ringing"></i>
+          <div class="notification bg-primary rounded-circle"></div>
+        </a>
+        {% endcomment %}
+      </li>
+    </ul>
+    <div class="navbar-collapse justify-content-between px-0" id="navbarNav">
+      <div style="flex-grow: 1;"></div>
+      <div style="text-align: center; width: 100%;">
+        <h1 style="margin: 0;"><b>Dashboard</b></h1>
+      </div>
+      <div>
+        <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+          <a href="{% url 'logout' %}" target="_blank" class="btn btn-primary">Logout</a>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<!-- Header End -->
+
+<div class="container-fluid">
+  <!-- <h4><b>Dashboard</b></h4> -->
+  <div class="col-5 g-4">
+    <div class="card overflow-hidden rounded-2">
+      <div class="card-body pt-2 p-2">
+        <form method="GET" action="{% url 'home' %}" class="row g-3 align-items-center">
+          <div class="col-auto">
+            <label for="start_date" class="form-label"><b>Start Date:</b></label>
+            <input type="date" id="start_date" name="start_date" class="form-control">
+          </div>
+          <div class="col-auto">
+            <label for="end_date" class="form-label"><b>End Date:</b></label>
+            <input type="date" id="end_date" name="end_date" class="form-control">
+          </div>
+          <div class="col-auto mt-3"> <!-- Added mt-3 class here -->
+            <button type="submit" class="btn btn-primary">Filter</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- <button onclick="downloadDashboard()" class="btn btn-primary">Download Dashboard</button> -->
+  
+  
+  
+  <div class="row row-cols-1 row-cols-md-5 mt-4"> <!-- Add mt-4 class to add margin on top -->
+    <div class="col">
+      <div class="card overflow-hidden rounded-2">
+        <div class="card-body pt-2 p-2">
+          <h6 class="fw-semibold fs-2">
+            <i style='font-size:24px' class='fas'>&#xf201;</i>{{ plot_html_profit|safe }}
+          </h6>
+        </div>
+      </div>
+    </div>
+    <!-- Repeat for the other four cards -->
+    <!-- Card 2 -->
+    <div class="col">
+      <div class="card overflow-hidden rounded-2">
+        <div class="card-body pt-2 p-2">
+          <h6 class="fw-semibold fs-2">
+            <i style='font-size:24px' class='fas'>&#xf4b9;</i>{{ plot_html_profit_after_tds|safe }}
+          </h6>
+        </div>
+      </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="col">
+      <div class="card overflow-hidden rounded-2">
+        <div class="card-body pt-2 p-2">
+          <h6 class="fw-semibold fs-2">
+            <i style='font-size:24px' class='fas'>&#xf4c0;</i>{{ plot_html_net_profit|safe }}
+          </h6>
+        </div>
+      </div>
+    </div>
+    <!-- Card 4 -->
+    <div class="col">
+      <div class="card overflow-hidden rounded-2">
+        <div class="card-body pt-2 p-2">
+          <h6 class="fw-semibold fs-2">
+            <img src="{% static 'images/logos/insurance.png' %}" alt="Insurance Logo" class="logo-img">{{ plot_html_p_number|safe }}
+          </h6>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Card 5 -->
+    <div class="col">
+      <div class="card overflow-hidden rounded-2">
+        <div class="card-body pt-2 p-2">
+          <h6 class="fw-semibold fs-2">
+            <img src="{% static 'images/logos/commission.png' %}" alt="Logo" class="logo-img">{{ plot_html_commission_percentage|safe }}
+          </h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Second row -->
+  <div class="row row-cols-1 row-cols-md-5 mt-4 mb-4"> <!-- Add mt-4 class to add margin on top -->
+    <!-- Card 6 -->
+    <div class="col">
+      <div class="card overflow-hidden rounded-2">
+        <div class="card-body pt-2 p-2">
+          <h6 class="fw-semibold fs-2">
+            <img src="{% static 'images/logos/pay.png' %}" alt="Logo" class="logo-img">{{ plot_html_payout_amount|safe }}
+          </h6>
+        </div>
+      </div>
+    </div>
+    <!-- Repeat for the other four cards -->
+    <!-- Card 7 -->
+    <div class="col">
+      <div class="card overflow-hidden rounded-2">
+        <div class="card-body pt-2 p-2">
+          <h6 class="fw-semibold fs-2">
+            <img src="{% static 'images/logos/premium.png' %}" alt="Logo" class="logo-img">{{ plot_html_premium|safe }}
+          </h6>
+        </div>
+      </div>
+    </div>
+    <!-- Card 8 -->
+    <div class="col">
+      <div class="card overflow-hidden rounded-2">
+        <div class="card-body pt-2 p-2">
+          <h6 class="fw-semibold fs-2">
+            <img src="{% static 'images/logos/od.png' %}" alt="Logo" class="logo-img">{{ plot_html_odnet_premium|safe }}
+          </h6>
+        </div>
+      </div>
+    </div>
+    <!-- Card 9 -->
+    <div class="col">
+      <div class="card overflow-hidden rounded-2">
+        <div class="card-body pt-2 p-2">
+          <h6 class="fw-semibold fs-2">
+            <img src="{% static 'images/logos/insenq.png' %}" alt="Logo" class="logo-img">{{ plot_html_total_unique_names|safe }}
+          </h6>
+        </div>
+      </div>
+    </div>
+    <!-- Card 10 -->
+    <div class="col">
+      <div class="card overflow-hidden rounded-2">
+        <div class="card-body pt-2 p-2">
+          <h6 class="fw-semibold fs-2">
+            <img src="{% static 'images/logos/loan.png' %}" alt="Logo" class="logo-img">{{ plot_html_total_name|safe }}          </h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4 d-flex align-items-stretch" style="padding-bottom: 0;">
+        <div class="card w-100" style="height: 450px;">
+            <div class="card-body">
+                <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                    <div class="mb-2 mb-sm-0">
+                        <h5 class="card-title fw-semibold">{{ plot_html_donut_2|safe }}</h5>
+                    </div>
+                </div>
+                <div id="chart1" class="chart-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 d-flex align-items-stretch" style="padding-bottom: 0;">
+        <div class="card w-100" style="height: 450px;">
+            <div class="card-body">
+                <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                    <div class="mb-3 mb-sm-0">
+                        <h5 class="card-title fw-semibold">{{ plot_html_donut|safe }}</h5>
+                    </div>
+                </div>
+                <div id="chart2" class="chart-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 d-flex align-items-stretch" style="padding-bottom: 0;">
+        <div class="card w-100" style="height: 450px;">
+            <div class="card-body">
+                <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                    <div class="mb-3 mb-sm-0">
+                        <h5 class="card-title fw-semibold">{{ plot_html_funnel|safe }}</h5>
+                    </div>
+                </div>
+                <div id="chart3" class="chart-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+      <!-- Third row -->
+  <div class="row mt-4"> <!-- Add mt-4 class to add margin on top -->
+    <div class="col-lg-7 d-flex align-items-strech">
+      <div class="card w-100">
+        <div class="card-body">
+              <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                <div class="mb-3 mb-sm-0">
+                  <h5 class="card-title fw-semibold">{{ plot_html_line|safe }}</h5>
+                </div>
+              </div>
+              <div id="chart"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 d-flex align-items-strech">
+          <div class="card w-100">
+            <div class="card-body">
+              <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                <div class="mb-3 mb-sm-0">
+                  <h5 class="card-title fw-semibold"> {{ plot_html_bar|safe }}</h5>
+                </div>
+              </div>
+              <div id="chart"></div>
+            </div>
+          </div>
+        </div>
+        
+    </div>
+  </div>
+  <script src="{% static 'libs/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/sidebarmenu.js' %}"></script>
+    <script src="{% static 'js/app.min.js' %}"></script>
+    <script src="{% static 'libs/simplebar/dist/simplebar.js' %}"></script>
+    <!-- Custom JavaScript -->
+  <!-- Add this JavaScript code at the end of your HTML body -->
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script> <!-- Include Plotly library -->
+
+<script>
+// Function to fetch data and update charts using Plotly
+// function updateCharts() {
+//     // Fetch start date and end date from form
+//     var startDate = document.getElementById('start_date').value;
+//     var endDate = document.getElementById('end_date').value;
+
+//     // Make AJAX request to fetch new data
+//     $.ajax({
+//         type: 'GET',
+//         url: '/fetch_data', // Replace with your server-side endpoint URL
+//         data: {
+//             start_date: startDate,
+//             end_date: endDate
+//         },
+//         success: function(data) {
+//             // Update charts here using Plotly
+//             // For example, if you have a bar chart with ID 'chart1'
+//             Plotly.newPlot('chart1', data.chart1Data);
+//             // Similarly update other charts
+//         },
+//         error: function(xhr, status, error) {
+//             console.error(error);
+//         }
+//     });
+// }
+
+// Call updateCharts function when form is submitted
+document.getElementById('date_filter_form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+    updateCharts(); // Call updateCharts function
+});
+document.addEventListener('DOMContentLoaded', function () {
+  const downloadButton = document.getElementById('downloadButton');
+  if (downloadButton) {
+    downloadButton.addEventListener('click', downloadDashboard);
+  }
+});
+
+
+</script>
+
+</body>
+
+</html>

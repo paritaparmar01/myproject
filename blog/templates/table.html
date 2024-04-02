@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Table Example</title>
+<!-- Bootstrap 5 CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+<!-- Data Table CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css">
+<!-- Font Awesome CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<style>
+/* Add your custom CSS styles here */
+.wrapper {
+  margin-top: 5vh;
+}
+
+.dataTables_filter {
+  float: right;
+}
+
+.table-hover > tbody > tr:hover {
+  background-color: #ccffff;
+}
+
+@media only screen and (min-width: 768px) {
+  .table {
+    table-layout: fixed;
+    max-width: 100% !important;
+  }
+}
+
+thead {
+  background: #ddd;
+}
+
+.table td:nth-child(2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.highlight {
+  background: #ffff99;
+}
+
+@media only screen and (max-width: 767px) {
+  /* Force table to not be like tables anymore */
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  /* Hide table headers (but not display: none;, for accessibility) */
+  thead tr,
+  tfoot tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50% !important;
+  }
+
+  td:before {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+
+  .table td:nth-child(1) {
+    background: #ccc;
+    height: 100%;
+    top: 0;
+    left: 0;
+    font-weight: bold;
+  }
+
+  /*
+  Label the data
+  */
+  td:nth-of-type(1):before {
+    content: "Name";
+  }
+
+  td:nth-of-type(2):before {
+    content: "Position";
+  }
+
+  td:nth-of-type(3):before {
+    content: "Office";
+  }
+
+  td:nth-of-type(4):before {
+    content: "Age";
+  }
+
+  td:nth-of-type(5):before {
+    content: "Start date";
+  }
+
+  td:nth-of-type(6):before {
+    content: "Salary";
+  }
+
+  .dataTables_length {
+    display: none;
+  }
+}
+</style>
+</head>
+<body>
+  
+
+  <div style="overflow-x: auto;">
+    <center><h4 style="color: blue;">Data Records</h4></center><br>
+    <table id="dataRecords" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th style="border: 2px solid black;">Edit</th>
+                <th style="border: 2px solid black;">Delete</th>
+                <th style="border: 2px solid black;">Mobile</th>
+                <th style="border: 2px solid black;">Name</th>
+                <th style="border: 2px solid black;">Email</th>
+                <th style="border: 2px solid black;">Vehicle Number</th>
+                <th style="border: 2px solid black;">RC Book</th>
+                <th style="border: 2px solid black;">RC Book Image</th>
+                <th style="border: 2px solid black;">Previous Policy</th>
+                <th style="border: 2px solid black;">Previous Policy Image</th>
+                <th style="border: 2px solid black;">End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for enquiry in enquiries %}
+            <tr>
+                <td style="border: 2px solid black;">
+                    <!-- Edit button -->
+                    <form action="{% url 'edit_view' record_id=enquiry.id %}" method="get" style="display: inline;">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-default" style="background: none; border: none;">
+                      <i class='fas fa-edit' style='font-size:15px; color: blue;'></i> 
+                      </button>
+                    </form>
+                </td>
+                <td style="border: 2px solid black;">
+                    <!-- Delete button -->
+                    <form action="{% url 'delete_enquiry' enquiry.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this record?');">
+                        {% csrf_token %}
+                        <button type="submit" style="background: none; border: none;">
+                            <i class="material-icons" style="color: red;">delete</i>
+                        </button>
+                    </form>
+                </td>
+                <td style="border: 2px solid black;">{{ enquiry.number }}</td>
+                <td style="border: 2px solid black;">{{ enquiry.name }}</td>
+                <td style="border: 2px solid black;">{{ enquiry.email }}</td>
+                <td style="border: 2px solid black;">{{ enquiry.vehicle_number }}</td>
+                <td style="border: 2px solid black;">{{ enquiry.rc_book_radio }}</td>
+                <!-- Displaying RC Book Image link instead of the image -->
+                <td style="border: 2px solid black;">
+                    {% if enquiry.rc_book_image %}
+                        <a href="{{ enquiry.rc_book_image.url }}" target="_blank">Download</a>
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td style="border: 2px solid black;">{{ enquiry.previous_policy_radio }}</td>
+                <!-- Displaying Previous Policy Image link instead of the image -->
+                <td style="border: 2px solid black;">
+                    {% if enquiry.previous_policy_image %}
+                        <a href="{{ enquiry.previous_policy_image.url }}" target="_blank">Download</a>
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td style="border: 2px solid black;">{{ enquiry.end_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<!-- Data Table JS -->
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('#dataRecords').DataTable({
+    //disable sorting on last column
+    "columnDefs": [
+      { "orderable": false, "targets": 11 }
+    ],
+    language: {
+      //customize pagination prev and next buttons: use arrows instead of words
+      'paginate': {
+        'previous': '<span class="fa fa-chevron-left"></span>',
+        'next': '<span class="fa fa-chevron-right"></span>'
+      },
+      //customize number of elements to be displayed
+      "lengthMenu": 'Display <select class="form-control input-sm">'+
+      '<option value="10">10</option>'+
+      '<option value="20">20</option>'+
+      '<option value="30">30</option>'+
+      '<option value="40">40</option>'+
+      '<option value="50">50</option>'+
+      '<option value="-1">All</option>'+
+      '</select> results'
+    }
+  })  
+});
+</script>
+{% comment %} function downloadDataRecords() {
+  // Get the table
+  var table = document.getElementById("dataRecords");
+  var rows = table.querySelectorAll("tr");
+  
+  // Initialize CSV string
+  var csv = [];
+  
+  // Iterate over rows and columns to build CSV
+  for (var i = 0; i < rows.length; i++) {
+      var row = [], cols = rows[i].querySelectorAll("td, th");
+      for (var j = 0; j < cols.length; j++) {
+          // Remove any commas from the content to prevent CSV formatting issues
+          var content = cols[j].innerText.replace(/,/g, "");
+          row.push(content);
+      }
+      // Join row elements into a string and add to CSV
+      csv.push(row.join(","));
+  }
+  
+  // Combine rows into a single CSV string
+  var csvString = csv.join("\n");
+  
+  // Create a blob containing the CSV data
+  var blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+  
+  // Create a download link
+  var link = document.createElement("a");
+  if (link.download !== undefined) { // Feature detection
+      // Set download link attributes
+      var url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", "data_records.csv");
+      
+      // Append link to the body
+      document.body.appendChild(link);
+      
+      // Trigger the download
+      link.click();
+      
+      // Remove the link from the body
+      document.body.removeChild(link);
+  } else {
+      alert("Your browser does not support downloading files.");
+  }
+}
+
+function toggleRcBookImageField() {
+  var rcBookRadioYes = document.getElementById('rcBookRadioYes');
+  var rcBookInputField = document.getElementById('rcBookInputField');
+  if (rcBookRadioYes.checked) {
+      rcBookInputField.style.display = 'block';
+  } else {
+      rcBookInputField.style.display = 'none';
+  }
+}
+
+function togglePreviousPolicyFields() {
+  var previousPolicyFields = document.getElementById('previousPolicyFields');
+  var previousPolicyRadioNo = document.getElementById('previousPolicyRadioNo');
+  var endDateField = document.querySelector('[name="end_date"]');
+
+  if (previousPolicyRadioNo.checked) {
+      // Hide previous policy fields
+      previousPolicyFields.style.display = 'none';
+      // Clear and disable end date field
+      endDateField.value = '';
+      endDateField.disabled = true;
+  } else {
+      // Show previous policy fields
+      previousPolicyFields.style.display = 'block';
+      // Enable end date field
+      endDateField.disabled = false;
+  }
+}
+
+
+function search() {
+  // Get the input value
+  var input = document.getElementById('searchInput').value.trim().toLowerCase();
+
+  // Get all tables in the document
+  var tables = document.querySelectorAll('table');
+
+  // Loop through each table
+  for (var i = 0; i < tables.length; i++) {
+      var rows = tables[i].querySelectorAll('tr');
+
+      // Loop through all table rows, starting from the second row (index 1)
+      for (var j = 1; j < rows.length; j++) {
+          var row = rows[j];
+          var found = false;
+
+          // Check each cell in the row for a match with the search query
+          for (var k = 0; k < row.cells.length; k++) {
+              var cellText = row.cells[k].textContent.trim().toLowerCase();
+              if (cellText.includes(input)) {
+                  found = true;
+                  break;
+              }
+          }
+
+          // Toggle row visibility based on whether any cell in the row matches the search query
+          if (found) {
+              row.style.display = '';
+          } else {
+              row.style.display = 'none';
+          }
+      }
+  }
+}
+</script> {% endcomment %}
+</body>
+</html>

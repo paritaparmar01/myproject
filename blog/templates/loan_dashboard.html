@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Dashboard</title>
+    <style>
+        /* Custom CSS for card size */
+        .card-container {
+            width: 200px; /* Set the desired width */
+            height: 120px; /* Set the desired height */
+            margin: 20px auto; /* Center the card horizontally */
+            border: 1px solid #ccc; /* Border for the card */
+            border-radius: 8px; /* Border radius for rounded corners */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle effect */
+        }
+        .card-content {
+            padding: 10px; /* Padding for the card content */
+        }
+    </style>
+</head>
+<body>
+    <h1>Loan Dashboard</h1>
+    <hr>
+    <!-- Metrics Card for Total Inquiries -->
+    <div class="card-container">
+        <div class="card-content">
+            <h3>Total Inquiries</h3>
+            <!-- Render Plotly HTML -->
+            {{ plot_html_total_name|safe }}
+        </div>
+    </div>
+</body>
+</html>
